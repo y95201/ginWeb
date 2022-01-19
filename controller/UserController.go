@@ -23,25 +23,25 @@ func UserCheck(context *gin.Context) {
 }
 func UserList(context *gin.Context) {
 
-	users := models.GetProjects(context)
+	users := models.GetList(context)
 	context.JSON(200, users)
 
 }
 func UserAdd(context *gin.Context) {
 
-	users := models.GetProjects(context)
+	users := models.GetAdds(context)
 	context.JSON(200, users)
 
 }
 func UserEdit(context *gin.Context) {
 
-	users := models.GetProjects(context)
+	users := models.GetUpdate(context)
 	context.JSON(200, users)
 
 }
 func UserDel(context *gin.Context) {
 
-	users := models.GetProjects(context)
+	users := models.GetDel(context)
 	context.JSON(200, users)
 
 }
