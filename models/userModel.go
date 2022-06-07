@@ -1,8 +1,6 @@
 package models
 
 import (
-	"fmt"
-
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
@@ -15,6 +13,11 @@ var err error
 type Users struct {
 	Username string
 	Password string
+	Avatar   string
+	Phone    int
+	Token    string
+	Age      int
+	Sex      int
 }
 
 func GetProjects(c *gin.Context) (users []Users) {
@@ -32,7 +35,7 @@ func GetList(c *gin.Context) (users []Users) {
 func GetUpdate(c *gin.Context) (users []Users) {
 	db := InitDB()
 	db.AutoMigrate(&Users{})
-	db.Model(&users).Where("id = ?", 3).Update("name", "hello")
+	db.Model(&users).Where("id = ?", 4).Update("name", "hello")
 	return users
 }
 func GetDel(c *gin.Context) (users []Users) {
@@ -46,21 +49,6 @@ func GetAdds(c *gin.Context) (users []Users) {
 	db.AutoMigrate(&Users{})
 	db.Model(&users).Where("id = ?", 3).Update("name", "hello")
 	return users
-}
-
-func InitDB() *gorm.DB {
-
-	db, err = gorm.Open("mysql", "root:123456@tcp(127.0.0.1:3306)/think?charset=utf8mb4&parseTime=True&loc=Local")
-	if err != nil {
-		fmt.Printf("mysql connect error %v", err)
-	}
-	db.SingularTable(true) //如果使用gorm来帮忙创建表时，这里填写false的话gorm会给表添加s后缀，填写true则不会
-	db.LogMode(false)      //打印sql语句
-	//开启连接池
-	db.DB().SetMaxIdleConns(10)    //最大空闲连接
-	db.DB().SetMaxOpenConns(100)   //最大连接数
-	db.DB().SetConnMaxLifetime(30) //最大生存时间(s)
-	return db
 }
 
 // func Logger() *logrus.Logger {
